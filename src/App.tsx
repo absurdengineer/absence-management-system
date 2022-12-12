@@ -1,12 +1,12 @@
 import "./App.css";
+import MainContent from "./components/MainContent";
+import AppLayout from "./layouts/AppLayout";
 
 function App() {
   return (
-    <div className="text-center">
-      <h4 className="text-white bg-orange-400 text-3xl py-5">
-        Leave Management System
-      </h4>
-    </div>
+    <AppLayout>
+      <MainContent />
+    </AppLayout>
   );
 }
 
