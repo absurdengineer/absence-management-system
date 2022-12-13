@@ -1,4 +1,6 @@
-const Filters = () => {
+import { FiltersType } from "../types/component.types";
+
+const Filters: FiltersType = ({ handleFilter }) => {
   return (
     <div className=" mt-4 grid gap-3 grid-cols-4">
       <div>
@@ -16,7 +18,10 @@ const Filters = () => {
         />
       </div>
       <div className="col-span-2 text-right">
-        <button className="bg-transparent hover:bg-orange-700 text-orange-500 font-semibold hover:text-white py-2 px-4 border border-orange-400 hover:border-transparent rounded">
+        <button
+          onClick={handleFilter}
+          className="bg-transparent hover:bg-orange-700 text-orange-500 font-semibold hover:text-white py-2 px-4 border border-orange-400 hover:border-transparent rounded"
+        >
           Apply Filters
         </button>
       </div>
