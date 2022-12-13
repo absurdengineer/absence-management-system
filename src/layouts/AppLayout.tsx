@@ -6,7 +6,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <div className="min-h-screen">
       <Header />
-      {children}
+      <div className="mx-auto max-w-7xl my-5">{children}</div>
       <Footer />
     </div>
   );

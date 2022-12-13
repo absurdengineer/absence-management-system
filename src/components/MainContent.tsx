@@ -1,8 +1,11 @@
+import AbsenceRecords from "./AbsenceRecords";
+
 const MainContent = () => {
   return (
-    <div className="mx-auto max-w-5xl my-5">
-      <h4 className="text-3xl text-gray-700">Leave Records</h4>
-    </div>
+    <>
+      <h4 className="text-3xl text-gray-700">Absence Records</h4>
+      <AbsenceRecords />
+    </>
   );
 };
 

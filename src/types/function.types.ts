@@ -14,3 +14,7 @@ export interface GetAbsences {
     limit?: number
   ): Promise<AbsencesApiResponse>;
 }
+
+export interface GetDate {
+  (date: string): string;
+}
