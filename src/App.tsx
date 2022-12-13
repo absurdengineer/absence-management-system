@@ -1,12 +1,19 @@
 import "./App.css";
+import Loader from "./components/Loader";
 import MainContent from "./components/MainContent";
+import { useGlobalState } from "./hooks/useGlobalState";
 import AppLayout from "./layouts/AppLayout";
 
 function App() {
+  const [state] = useGlobalState();
+
   return (
-    <AppLayout>
-      <MainContent />
-    </AppLayout>
+    <>
+      {state.loading && <Loader />}
+      <AppLayout>
+        <MainContent />
+      </AppLayout>
+    </>
   );
 }
 

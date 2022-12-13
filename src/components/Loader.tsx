@@ -1,6 +1,8 @@
-const Loader = () => {
+import { NoPropType } from "../types/component.types";
+
+const Loader: NoPropType = () => {
   return (
-    <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center w-full h-full bg-black opacity-40">
+    <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center w-full h-full bg-black opacity-40 z-10">
       <div className="flex justify-center items-center space-x-1 text-sm text-orange-400">
         <svg
           fill="none"

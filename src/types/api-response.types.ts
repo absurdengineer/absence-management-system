@@ -5,7 +5,6 @@ export interface MembersApiResponse {
   message: string;
   payload: Member[];
 }
-
 // Schema of Get Absences API (Success)
 export interface AbsencesApiResponse {
   message: string;

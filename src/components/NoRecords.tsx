@@ -1,4 +1,6 @@
-const NoRecords = () => {
+import { NoPropType } from "../types/component.types";
+
+const NoRecords: NoPropType = () => {
   return (
     <div
       className="bg-orange-100 border-t border-b border-orange-400 text-orange-600 px-4 py-3 my-10"

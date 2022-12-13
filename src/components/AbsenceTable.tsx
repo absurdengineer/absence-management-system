@@ -1,3 +1,5 @@
+import { AbsenceTableType } from "../types/component.types";
+
 const tdClass = "text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap";
 const thClass = "text-sm font-medium px-6 py-4 text-left";
 const headings = [
@@ -10,7 +12,7 @@ const headings = [
   "Admitter Note",
 ];
 
-const AbsenceTable = () => {
+const AbsenceTable: AbsenceTableType = () => {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">

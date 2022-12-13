@@ -1,4 +1,6 @@
-const Pagination = () => {
+import { PaginationType } from "../types/component.types";
+
+const Pagination: PaginationType = () => {
   return (
     <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
       <div>
