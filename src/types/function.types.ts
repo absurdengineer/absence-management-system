@@ -1,4 +1,5 @@
 import { AbsencesApiResponse, MembersApiResponse } from "./api-response.types";
+import { GlobalState } from "./state.types";
 
 // Type for getMembers()
 export interface GetMembers {
@@ -14,7 +15,11 @@ export interface GetAbsences {
     limit?: number
   ): Promise<AbsencesApiResponse>;
 }
-
+// Type for getDate()
 export interface GetDate {
   (date: string): string;
+}
+// Type for reducer()
+export interface Reducer {
+  (state: GlobalState, action: { type: string; payload?: any }): GlobalState;
 }

@@ -6,7 +6,6 @@ export interface Member {
   name: string;
   userId: number;
 }
-
 // Schema of Absence
 export interface Absence {
   admitterId: number | null;
@@ -21,4 +20,17 @@ export interface Absence {
   startDate: string;
   type: string;
   userId: number;
+}
+// Schema of MemberAbsence
+export interface MemberAbsence {
+  id: number;
+  name: string;
+  type: string;
+  startDate: string;
+  endDate: string;
+  memberNote: string;
+  admitterNote: string;
+  confirmedAt: string | null;
+  createdAt: string;
+  rejectedAt: string | null;
 }
