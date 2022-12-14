@@ -23,3 +23,11 @@ export interface GetDate {
 export interface Reducer {
   (state: GlobalState, action: { type: string; payload?: any }): GlobalState;
 }
+// Type for range()
+export interface CustomRange {
+  (start: number, end: number): number[];
+}
+// Type for getPages()
+export interface GetPages {
+  (currentPage: number, totalPages: number, maxNumberPages?: number): number[];
+}
