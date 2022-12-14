@@ -5,7 +5,6 @@ import { GlobalState } from "./state.types";
 export interface GetMembers {
   (): Promise<MembersApiResponse>;
 }
-
 // Type for getAbsences()
 export interface GetAbsences {
   (
@@ -30,4 +29,8 @@ export interface CustomRange {
 // Type for getPages()
 export interface GetPages {
   (currentPage: number, totalPages: number, maxNumberPages?: number): number[];
+}
+// Type for handlePageChange()
+export interface HandlePageChange {
+  (page: number): void;
 }

@@ -12,7 +12,11 @@ export const getPages: GetPages = (
   if (currentPage <= middle)
     return range(1, maxNumberPages).slice(0, totalPages);
   else if (currentPage > totalPages - middle)
-    return range(totalPages - maxNumberPages + 1, totalPages);
+    return totalPages < maxNumberPages
+      ? range(totalPages - maxNumberPages + 1, totalPages).slice(
+          maxNumberPages - totalPages
+        )
+      : range(totalPages - maxNumberPages + 1, totalPages);
   else {
     if (maxNumberPages % 2)
       return range(currentPage - middle + 1, currentPage + middle - 1);
