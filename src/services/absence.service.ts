@@ -1,22 +1,24 @@
 import absences from "../data/absences.json";
+import { generateRandomNumber } from "../helpers/basic.helpers";
 import { GetAbsences } from "../types/function.types";
 import { Absence } from "../types/resource.types";
 
 export const getAbsences: GetAbsences = (
   page = 1,
-  type = null,
-  date = null,
+  type = "",
+  date = "",
   limit = 50
 ) =>
   new Promise((resolve, reject) => {
     try {
       const offset: number = (page - 1) * limit;
-      let data: Absence[] = [];
+      let data: Absence[] = absences;
       // Type Filter
-      if (type) data = absences.filter((absence) => absence.type === type);
+      if (type && type !== "")
+        data = absences.filter((absence) => absence.type === type);
       // Date Filter
-      if (date)
-        data = absences.filter((absence) => absence.createdAt.startsWith(date));
+      if (date && date !== "")
+        data = absences.filter((absence) => absence.startDate.startsWith(date));
       // Paginated Data
       const finalData = data.slice(offset, offset + limit);
       // Resolving Promise after 3 second to simulate the API call.
@@ -25,11 +27,11 @@ export const getAbsences: GetAbsences = (
           message: "Success",
           payload: {
             absences: finalData,
-            count: finalData.length,
+            count: data.length,
             totalCount: absences.length,
           },
         });
-      }, 3000);
+      }, generateRandomNumber());
     } catch (error) {
       // Rejecting Promise in case of failure
       reject({ message: "Failure", payload: [] });

@@ -1,4 +1,4 @@
-import { HandlePageChange } from "./function.types";
+import { HandleFilter, HandlePageChange } from "./function.types";
 
 // Schema of App Layout Prop
 export interface AppLayoutProps {
@@ -12,8 +12,8 @@ export interface ChildrenProps {
 export interface FiltersProps {
   type: string;
   date: string;
-  handleFilter: (reset?: boolean) => void;
-  handleStateChange: (state: any) => void;
+  page: number;
+  handleFilter: HandleFilter;
 }
 // Schema of App Pagination Prop
 export interface PaginationProps {

@@ -14,3 +14,8 @@ export interface AbsencesApiResponse {
     totalCount: number;
   };
 }
+// Schema of Get Members and Absences API (Success)
+export type MemberAndAbsenceApiResponse = [
+  Promise<MembersApiResponse>,
+  Promise<AbsencesApiResponse>
+];

@@ -1,5 +1,5 @@
 import { AbsencesApiResponse, MembersApiResponse } from "./api-response.types";
-import { AbsenceRecordStateUpdate } from "./resource.types";
+import { AbsenceRecordStateUpdate, MemberAbsence } from "./resource.types";
 import { GlobalState } from "./state.types";
 
 // Type for getMembers()
@@ -10,8 +10,8 @@ export interface GetMembers {
 export interface GetAbsences {
   (
     page?: number,
-    type?: string | null,
-    date?: string | null,
+    type?: string,
+    date?: string,
     limit?: number
   ): Promise<AbsencesApiResponse>;
 }
@@ -35,7 +35,21 @@ export interface GetPages {
 export interface HandlePageChange {
   (page: number): void;
 }
-// Type for handleStateChange()
-export interface HandleStateChange {
-  (newState: AbsenceRecordStateUpdate): void;
+export interface HandleFilter {
+  (reset?: boolean, newState?: { type?: string; date?: string }): void;
+}
+// Type for generateRandomNumber()
+export interface GenerateRandomNumber {
+  (): number;
+}
+// Type for ApiProps
+export interface ApiProps {
+  (page: number, type: string, date: string, limit: number): void;
+}
+export interface GetMemberAbsence {
+  (page: number, type: string, date: string, limit: number): Promise<{
+    memberAbsences: MemberAbsence[];
+    count: number;
+    totalCount: number;
+  }>;
 }
