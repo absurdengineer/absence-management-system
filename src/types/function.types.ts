@@ -1,4 +1,5 @@
 import { AbsencesApiResponse, MembersApiResponse } from "./api-response.types";
+import { AbsenceRecordStateUpdate } from "./resource.types";
 import { GlobalState } from "./state.types";
 
 // Type for getMembers()
@@ -33,4 +34,8 @@ export interface GetPages {
 // Type for handlePageChange()
 export interface HandlePageChange {
   (page: number): void;
+}
+// Type for handleStateChange()
+export interface HandleStateChange {
+  (newState: AbsenceRecordStateUpdate): void;
 }

@@ -10,7 +10,10 @@ export interface ChildrenProps {
 }
 // Schema of App Filters Prop
 export interface FiltersProps {
-  handleFilter: () => void;
+  type: string;
+  date: string;
+  handleFilter: (reset?: boolean) => void;
+  handleStateChange: (state: any) => void;
 }
 // Schema of App Pagination Prop
 export interface PaginationProps {

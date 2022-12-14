@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useGlobalState } from "../hooks/useGlobalState";
 import { NoPropType } from "../types/component.types";
-import { HandlePageChange } from "../types/function.types";
+import { HandlePageChange, HandleStateChange } from "../types/function.types";
+import { AbsenceRecordState } from "../types/resource.types";
 import AbsenceTable from "./AbsenceTable";
 import Filters from "./Filters";
 import NoRecords from "./NoRecords";
@@ -10,27 +11,42 @@ import Pagination from "./Pagination";
 // Default Values
 const limit: number = 10;
 const maxPages: number = 5;
+const initialState = {
+  currentPage: 1,
+  type: "",
+  date: "",
+};
 
 const AbsenceRecords: NoPropType = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [state, setState] = useState<AbsenceRecordState>(initialState);
   const [globalState, dispatch] = useGlobalState();
   // Filters Handler
-  const handleFilter = () => {
-    dispatch({ type: "ADD_ABSENCE" });
+  const handleFilter = (reset = false) => {
+    if (reset) setState(initialState);
+    // dispatch({ type: "ADD_ABSENCE" });
   };
   // Page Change Handler
   const handlePageChange: HandlePageChange = (page) => {
-    setCurrentPage(page);
+    setState({ ...state, currentPage: page });
+  };
+  // handle Change State
+  const handleStateChange: HandleStateChange = (newState) => {
+    setState({ ...state, ...newState });
   };
 
   return (
     <>
-      <Filters handleFilter={handleFilter} />
+      <Filters
+        type={state.type}
+        date={state.date}
+        handleFilter={handleFilter}
+        handleStateChange={handleStateChange}
+      />
       {globalState.absenses.length ? (
         <>
           <AbsenceTable />
           <Pagination
-            currentPage={currentPage}
+            currentPage={state.currentPage}
             totalPages={6}
             maxPages={maxPages}
             totalRecords={56}

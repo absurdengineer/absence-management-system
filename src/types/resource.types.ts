@@ -34,3 +34,15 @@ export interface MemberAbsence {
   createdAt: string;
   rejectedAt: string | null;
 }
+// Schema of AbsenceRecordState
+export interface AbsenceRecordState {
+  currentPage: number;
+  type: string;
+  date: string;
+}
+// Schema of AbsenceRecordStateUpdate
+export interface AbsenceRecordStateUpdate {
+  currentPage?: number;
+  type?: string;
+  date?: string;
+}
