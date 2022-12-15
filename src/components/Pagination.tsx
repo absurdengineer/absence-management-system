@@ -46,11 +46,9 @@ const Pagination: PaginationType = ({
               inactivePageClass +
               commonPageClass
             }
-            onClick={() =>
-              currentPage === 1 ? {} : handlePageChange(currentPage - 1)
-            }
+            onClick={() => (currentPage === 1 ? {} : handlePageChange(1))}
             data-bs-toggle="tooltip"
-            title="Previous"
+            title="First"
           >
             &lt;&lt;
           </li>
