@@ -3,11 +3,8 @@ import { LOADING, SET_MEMBER_ABSENCE } from "../constants/action.constants";
 import { useGlobalState } from "../hooks/useGlobalState";
 import { getMemberAbsence } from "../services/member-absence.service";
 import { NoPropType } from "../types/component.types";
-import {
-  HandlePageChange,
-  ApiProps,
-  HandleFilter,
-} from "../types/function.types";
+import { HandlePageChange, HandleFilter } from "../types/function.types";
+import { ApiProps } from "../types/prop.types";
 import { AbsenceRecordState } from "../types/resource.types";
 import AbsenceTable from "./AbsenceTable";
 import Filters from "./Filters";
@@ -55,6 +52,11 @@ const AbsenceRecords: NoPropType = () => {
       type: LOADING,
       payload: false,
     });
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
@@ -68,15 +70,16 @@ const AbsenceRecords: NoPropType = () => {
         date={state.date}
         page={state.currentPage}
         handleFilter={handleFilter}
+        unfilteredCount={globalState.absenses.totalCount}
       />
       {globalState.absenses.memberAbsences.length ? (
         <>
-          <AbsenceTable />
+          <AbsenceTable memberAbsences={globalState.absenses.memberAbsences} />
           <Pagination
             currentPage={state.currentPage}
-            totalPages={6}
+            totalPages={Math.ceil(globalState.absenses.count / limit)}
             maxPages={maxPages}
-            totalRecords={56}
+            totalRecords={globalState.absenses.count}
             limit={limit}
             handlePageChange={handlePageChange}
           />

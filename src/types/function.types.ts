@@ -43,13 +43,13 @@ export interface GenerateRandomNumber {
   (): number;
 }
 // Type for ApiProps
-export interface ApiProps {
-  (page: number, type: string, date: string, limit: number): void;
-}
 export interface GetMemberAbsence {
   (page: number, type: string, date: string, limit: number): Promise<{
     memberAbsences: MemberAbsence[];
     count: number;
     totalCount: number;
   }>;
+}
+export interface GetStatus {
+  (rejectedAt: string | null, confirmedAt: string | null): string;
 }

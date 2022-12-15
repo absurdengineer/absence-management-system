@@ -1,4 +1,5 @@
 import { HandleFilter, HandlePageChange } from "./function.types";
+import { MemberAbsence } from "./resource.types";
 
 // Schema of App Layout Prop
 export interface AppLayoutProps {
@@ -13,6 +14,7 @@ export interface FiltersProps {
   type: string;
   date: string;
   page: number;
+  unfilteredCount: number;
   handleFilter: HandleFilter;
 }
 // Schema of App Pagination Prop
@@ -23,4 +25,12 @@ export interface PaginationProps {
   maxPages: number;
   limit: number;
   handlePageChange: HandlePageChange;
+}
+// Schema of App Absence Table Prop
+export interface AbsenceTableProps {
+  memberAbsences: MemberAbsence[];
+}
+// Schema of Api Props
+export interface ApiProps {
+  (page: number, type: string, date: string, limit: number): void;
 }

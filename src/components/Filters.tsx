@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { absenceTypes } from "../constants/resource.constants";
+import { getDate } from "../helpers/date.helpers";
 import { FiltersType } from "../types/component.types";
 
-const Filters: FiltersType = ({ type, date, page, handleFilter }) => {
+const Filters: FiltersType = ({
+  type,
+  date,
+  page,
+  unfilteredCount,
+  handleFilter,
+}) => {
   const [state, setState] = useState({ type: type, date: date });
 
   const resetFilter: () => void = () => {
-    console.log("reset");
     setState({ type: "", date: "" });
     handleFilter(true);
   };
@@ -64,6 +70,27 @@ const Filters: FiltersType = ({ type, date, page, handleFilter }) => {
         >
           Apply Filters
         </button>
+      </div>
+      <div className="col-span-4 text-right">
+        <p className="text-sm text-gray-700">
+          No filter records :{" "}
+          <span className="font-bold">{unfilteredCount}</span>
+        </p>
+      </div>
+      <div className="col-span-4">
+        {(type || date) && (
+          <p className="text-sm text-gray-700">Showing Results for : </p>
+        )}
+        {type && (
+          <p>
+            Leave type: <span className="font-bold">{type}</span>
+          </p>
+        )}
+        {date && (
+          <p>
+            Date: <span className="font-bold">{getDate(date)}</span>
+          </p>
+        )}
       </div>
     </div>
   );
