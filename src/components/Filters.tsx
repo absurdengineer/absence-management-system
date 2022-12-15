@@ -5,6 +5,12 @@ import { FiltersType } from "../types/component.types";
 const Filters: FiltersType = ({ type, date, page, handleFilter }) => {
   const [state, setState] = useState({ type: type, date: date });
 
+  const resetFilter: () => void = () => {
+    console.log("reset");
+    setState({ type: "", date: "" });
+    handleFilter(true);
+  };
+
   return (
     <div className=" mt-4 grid gap-3 grid-cols-4">
       <div>
@@ -32,7 +38,7 @@ const Filters: FiltersType = ({ type, date, page, handleFilter }) => {
       <div className="col-span-2 text-right">
         <button
           onClick={() =>
-            type === "" && date === "" && page === 1 ? {} : handleFilter(true)
+            type === "" && date === "" && page === 1 ? {} : resetFilter()
           }
           disabled={type === "" && date === "" && page === 1}
           data-bs-toggle="tooltip"
