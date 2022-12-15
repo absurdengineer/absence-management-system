@@ -18,7 +18,7 @@ export const getAbsences: GetAbsences = (
         data = absences.filter((absence) => absence.type === type);
       // Date Filter
       if (date && date !== "")
-        data = absences.filter((absence) => absence.startDate.startsWith(date));
+        data = data.filter((absence) => absence.startDate.startsWith(date));
       // Paginated Data
       const finalData = data.slice(offset, offset + limit);
       // Resolving Promise after 3 second to simulate the API call.
