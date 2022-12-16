@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LOADING, SET_MEMBER_ABSENCE } from "../constants/action.constants";
 import { useGlobalState } from "../hooks/useGlobalState";
 import { getMemberAbsence } from "../services/member-absence.service";
 import { NoPropType } from "../types/component.types";
-import { HandlePageChange, HandleFilter } from "../types/function.types";
+import {
+  HandlePageChange,
+  HandleFilter,
+  GetMaxPages,
+} from "../types/function.types";
 import { ApiProps } from "../types/prop.types";
 import { AbsenceRecordState } from "../types/resource.types";
 import AbsenceTable from "./AbsenceTable";
@@ -14,6 +18,7 @@ import Pagination from "./Pagination";
 // Default Values
 const limit: number = 10;
 const maxPages: number = 5;
+const maxPagesMobile: number = 3;
 const initialState = {
   currentPage: 1,
   type: "",
@@ -32,36 +37,38 @@ const AbsenceRecords: NoPropType = () => {
   const handlePageChange: HandlePageChange = (page) => {
     setState({ ...state, currentPage: page });
   };
-  // handle Fetch MemberAbsence
-  const handleFetchMemberAbsence: ApiProps = async (
-    page,
-    type,
-    date,
-    limit
-  ) => {
-    dispatch({
-      type: LOADING,
-      payload: true,
-    });
-    const data = await getMemberAbsence(page, type, date, limit);
-    dispatch({
-      type: SET_MEMBER_ABSENCE,
-      payload: data,
-    });
-    dispatch({
-      type: LOADING,
-      payload: false,
-    });
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+  // Max Page Size
+  const getMaxPages: GetMaxPages = () => {
+    return window.innerWidth > 400 ? maxPages : maxPagesMobile;
   };
+  // handle Fetch MemberAbsence
+  const handleFetchMemberAbsence: ApiProps = useCallback(
+    async (page, type, date, limit) => {
+      dispatch({
+        type: LOADING,
+        payload: true,
+      });
+      const data = await getMemberAbsence(page, type, date, limit);
+      dispatch({
+        type: SET_MEMBER_ABSENCE,
+        payload: data,
+      });
+      dispatch({
+        type: LOADING,
+        payload: false,
+      });
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     handleFetchMemberAbsence(state.currentPage, state.type, state.date, limit);
-  }, [state.currentPage, state.type, state.date]);
+  }, [state.currentPage, state.type, state.date, handleFetchMemberAbsence]);
 
   return (
     <>
@@ -70,15 +77,20 @@ const AbsenceRecords: NoPropType = () => {
         date={state.date}
         page={state.currentPage}
         handleFilter={handleFilter}
-        unfilteredCount={globalState.absenses.totalCount}
       />
+      <div className="text-right my-4">
+        <p className="text-sm text-gray-700">
+          No filter records :{" "}
+          <span className="font-bold">{globalState.absenses.totalCount}</span>
+        </p>
+      </div>
       {globalState.absenses.memberAbsences.length ? (
         <>
           <AbsenceTable memberAbsences={globalState.absenses.memberAbsences} />
           <Pagination
             currentPage={state.currentPage}
             totalPages={Math.ceil(globalState.absenses.count / limit)}
-            maxPages={maxPages}
+            maxPages={getMaxPages()}
             totalRecords={globalState.absenses.count}
             limit={limit}
             handlePageChange={handlePageChange}

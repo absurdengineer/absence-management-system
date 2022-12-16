@@ -17,8 +17,8 @@ const Pagination: PaginationType = ({
   handlePageChange,
 }) => {
   return (
-    <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-      <div>
+    <div className="text-center sm:flex sm:flex-1 sm:items-center sm:justify-between">
+      <div className="mt-5 sm:mt-2">
         <p className="text-sm text-gray-700">
           Showing
           <span className="font-medium">
@@ -37,7 +37,7 @@ const Pagination: PaginationType = ({
           records
         </p>
       </div>
-      <div>
+      <div className="mt-5 sm:mt-2">
         <ul className="isolate inline-flex -space-x-px rounded-md shadow-sm">
           <li
             className={
