@@ -42,7 +42,7 @@ export interface HandleFilter {
 export interface GenerateRandomNumber {
   (): number;
 }
-// Type for ApiProps
+// Type for getMemberAbsence()
 export interface GetMemberAbsence {
   (page: number, type: string, date: string, limit: number): Promise<{
     memberAbsences: MemberAbsence[];
@@ -50,6 +50,11 @@ export interface GetMemberAbsence {
     totalCount: number;
   }>;
 }
+// Type for getStatus()
 export interface GetStatus {
   (rejectedAt: string | null, confirmedAt: string | null): string;
+}
+// Type for getMaxPages()
+export interface GetMaxPages {
+  (): number;
 }

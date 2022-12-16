@@ -8,6 +8,7 @@ export interface Member {
 }
 // Schema of Absence
 export interface Absence {
+  [key: string]: string | null | number;
   admitterNote: string;
   confirmedAt: string | null;
   createdAt: string;

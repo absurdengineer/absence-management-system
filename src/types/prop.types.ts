@@ -14,7 +14,6 @@ export interface FiltersProps {
   type: string;
   date: string;
   page: number;
-  unfilteredCount: number;
   handleFilter: HandleFilter;
 }
 // Schema of App Pagination Prop
