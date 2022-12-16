@@ -2,7 +2,10 @@ import { NoPropType } from "../types/component.types";
 
 const Loader: NoPropType = () => {
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center w-full h-100 bg-black opacity-40 z-10">
+    <div
+      title="loader"
+      className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center w-full h-100 bg-black opacity-40 z-10"
+    >
       <div className="flex justify-center items-center space-x-1 text-sm text-orange-500">
         <svg
           fill="none"
