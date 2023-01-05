@@ -2,6 +2,7 @@ import {
   CustomRange,
   GenerateRandomNumber,
   GetStatus,
+  MemberReducer,
 } from "../types/function.types";
 
 export const range: CustomRange = (start, end) => {
@@ -21,4 +22,9 @@ export const generateRandomNumber: GenerateRandomNumber = () => {
 
 export const getStatus: GetStatus = (rejectedAt, confirmedAt) => {
   return rejectedAt ? "Rejected" : confirmedAt ? "Confirmed" : "Requested";
+};
+
+export const memberReducer: MemberReducer = (memberMap, member) => {
+  memberMap[member.userId] = member;
+  return memberMap;
 };

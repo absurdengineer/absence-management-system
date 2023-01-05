@@ -1,11 +1,14 @@
 import { createContext, useContext, useReducer, Dispatch } from "react";
-import { LOADING, SET_MEMBER_ABSENCE } from "../constants/action.constants";
+import {
+  LOADING,
+  SET_MEMBERS_AND_ABSENCES,
+} from "../constants/action.constants";
 import { Reducer } from "../types/function.types";
 import { ChildrenProps } from "../types/prop.types";
 import { GlobalState } from "../types/state.types";
 
 const initialGlobalState = {
-  absenses: { memberAbsences: [], count: 0, totalCount: 0 },
+  resources: { absences: [], memberMap: {}, count: 0, totalCount: 0 },
   loading: false,
 };
 
@@ -21,8 +24,8 @@ const globalReducer: Reducer = (state, action) => {
   switch (action.type) {
     case LOADING:
       return { ...state, loading: action.payload };
-    case SET_MEMBER_ABSENCE:
-      return { ...state, absenses: action.payload };
+    case SET_MEMBERS_AND_ABSENCES:
+      return { ...state, resources: action.payload };
     default:
       return state;
   }

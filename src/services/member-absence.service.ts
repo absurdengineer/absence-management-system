@@ -1,10 +1,11 @@
+import { memberReducer } from "../helpers/basic.helpers";
 import { MemberAndAbsenceApiResponse } from "../types/api-response.types";
-import { GetMemberAbsence } from "../types/function.types";
-import { MemberAbsence } from "../types/resource.types";
+import { GetMembersAndAbsences } from "../types/function.types";
+import { MemberMap } from "../types/resource.types";
 import { getAbsences } from "./absence.service";
 import { getMembers } from "./member.service";
 
-export const getMemberAbsence: GetMemberAbsence = async (
+export const getMembersAndAbsences: GetMembersAndAbsences = async (
   page,
   type,
   date,
@@ -14,15 +15,10 @@ export const getMemberAbsence: GetMemberAbsence = async (
     getMembers(),
     getAbsences(page, type, date, limit),
   ]);
+  const memberMap: MemberMap = members.payload.reduce(memberReducer, {});
   return {
-    memberAbsences: absences.payload.absences.map((absence) => {
-      const memberAbsence: MemberAbsence = { ...absence };
-      const member = members.payload.find(
-        (member) => member.userId === absence.userId
-      );
-      memberAbsence.name = member?.name;
-      return memberAbsence;
-    }),
+    absences: absences.payload.absences,
+    memberMap: memberMap,
     count: absences.payload.count,
     totalCount: absences.payload.totalCount,
   };

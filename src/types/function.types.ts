@@ -1,5 +1,5 @@
 import { AbsencesApiResponse, MembersApiResponse } from "./api-response.types";
-import { AbsenceRecordStateUpdate, MemberAbsence } from "./resource.types";
+import { Absence, Member, MemberMap } from "./resource.types";
 import { GlobalState } from "./state.types";
 
 // Type for getMembers()
@@ -42,14 +42,6 @@ export interface HandleFilter {
 export interface GenerateRandomNumber {
   (): number;
 }
-// Type for getMemberAbsence()
-export interface GetMemberAbsence {
-  (page: number, type: string, date: string, limit: number): Promise<{
-    memberAbsences: MemberAbsence[];
-    count: number;
-    totalCount: number;
-  }>;
-}
 // Type for getStatus()
 export interface GetStatus {
   (rejectedAt: string | null, confirmedAt: string | null): string;
@@ -57,4 +49,17 @@ export interface GetStatus {
 // Type for getMaxPages()
 export interface GetMaxPages {
   (): number;
+}
+// Type for memberReducer()
+export interface MemberReducer {
+  (memberMap: MemberMap, member: Member): MemberMap;
+}
+// Type for getMembersAndAbsences()
+export interface GetMembersAndAbsences {
+  (page: number, type: string, date: string, limit: number): Promise<{
+    absences: Absence[];
+    memberMap: MemberMap;
+    count: number;
+    totalCount: number;
+  }>;
 }

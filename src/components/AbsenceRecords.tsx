@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { LOADING, SET_MEMBER_ABSENCE } from "../constants/action.constants";
+import {
+  LOADING,
+  SET_MEMBERS_AND_ABSENCES,
+} from "../constants/action.constants";
 import { useGlobalState } from "../hooks/useGlobalState";
-import { getMemberAbsence } from "../services/member-absence.service";
+import { getMembersAndAbsences } from "../services/member-absence.service";
 import { NoPropType } from "../types/component.types";
 import {
   HandlePageChange,
@@ -48,9 +51,9 @@ const AbsenceRecords: NoPropType = () => {
         type: LOADING,
         payload: true,
       });
-      const data = await getMemberAbsence(page, type, date, limit);
+      const data = await getMembersAndAbsences(page, type, date, limit);
       dispatch({
-        type: SET_MEMBER_ABSENCE,
+        type: SET_MEMBERS_AND_ABSENCES,
         payload: data,
       });
       dispatch({
@@ -65,7 +68,6 @@ const AbsenceRecords: NoPropType = () => {
     },
     [dispatch]
   );
-
   useEffect(() => {
     handleFetchMemberAbsence(state.currentPage, state.type, state.date, limit);
   }, [state.currentPage, state.type, state.date, handleFetchMemberAbsence]);
@@ -81,17 +83,20 @@ const AbsenceRecords: NoPropType = () => {
       <div className="text-right my-4">
         <p className="text-sm text-gray-700">
           No filter records :{" "}
-          <span className="font-bold">{globalState.absenses.totalCount}</span>
+          <span className="font-bold">{globalState.resources.totalCount}</span>
         </p>
       </div>
-      {globalState.absenses.memberAbsences.length ? (
+      {globalState.resources.count ? (
         <>
-          <AbsenceTable memberAbsences={globalState.absenses.memberAbsences} />
+          <AbsenceTable
+            absences={globalState.resources.absences}
+            memberMap={globalState.resources.memberMap}
+          />
           <Pagination
             currentPage={state.currentPage}
-            totalPages={Math.ceil(globalState.absenses.count / limit)}
+            totalPages={Math.ceil(globalState.resources.count / limit)}
             maxPages={getMaxPages()}
-            totalRecords={globalState.absenses.count}
+            totalRecords={globalState.resources.count}
             limit={limit}
             handlePageChange={handlePageChange}
           />

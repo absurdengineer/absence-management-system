@@ -1,5 +1,5 @@
 import { HandleFilter, HandlePageChange } from "./function.types";
-import { MemberAbsence } from "./resource.types";
+import { Absence, MemberMap } from "./resource.types";
 
 // Schema of App Layout Prop
 export interface AppLayoutProps {
@@ -27,7 +27,8 @@ export interface PaginationProps {
 }
 // Schema of App Absence Table Prop
 export interface AbsenceTableProps {
-  memberAbsences: MemberAbsence[];
+  memberMap: MemberMap;
+  absences: Absence[];
 }
 // Schema of Api Props
 export interface ApiProps {

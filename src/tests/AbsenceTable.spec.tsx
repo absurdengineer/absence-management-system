@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import AbsenceTable from "../components/AbsenceTable";
 import { getDate } from "../helpers/date.helpers";
-import { memberAbsences } from "./data/absence-table.mock-data";
+import { absences, memberMap } from "./data/absence-table.mock-data";
 
 const tableHeadings = [
   "#",
@@ -15,7 +15,7 @@ const tableHeadings = [
 
 describe("<AbsenceTable />", () => {
   beforeEach(() => {
-    render(<AbsenceTable memberAbsences={memberAbsences} />);
+    render(<AbsenceTable absences={absences} memberMap={memberMap} />);
   });
   it("should have a table", () => {
     expect(screen.getByRole("table")).toBeInTheDocument();
@@ -26,15 +26,11 @@ describe("<AbsenceTable />", () => {
     }
   });
   it('should render "Table Records"', () => {
-    for (let memberAbsence of memberAbsences) {
-      expect(screen.getByText(memberAbsence.id)).toBeInTheDocument();
-      expect(screen.getByText(memberAbsence.type)).toBeInTheDocument();
-      expect(
-        screen.getByText(getDate(memberAbsence.startDate))
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText(getDate(memberAbsence.endDate))
-      ).toBeInTheDocument();
+    for (let absence of absences) {
+      expect(screen.getByText(absence.id)).toBeInTheDocument();
+      expect(screen.getByText(absence.type)).toBeInTheDocument();
+      expect(screen.getByText(getDate(absence.startDate))).toBeInTheDocument();
+      expect(screen.getByText(getDate(absence.endDate))).toBeInTheDocument();
     }
   });
 });

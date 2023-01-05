@@ -2,6 +2,7 @@ import { AbsenceTableType } from "../types/component.types";
 import { getStatus } from "../helpers/basic.helpers";
 import { getDate } from "../helpers/date.helpers";
 import { GetStatus } from "../types/function.types";
+import { Absence } from "../types/resource.types";
 
 const tdClass = "text-sm text-gray-900 font-light px-6 py-4 ";
 const thClass = "text-sm font-medium px-6 py-4 text-left ";
@@ -23,7 +24,7 @@ const getStatusClass: GetStatus = (rejectedAt, confirmedAt) => {
     : " bg-blue-50";
 };
 
-const AbsenceTable: AbsenceTableType = ({ memberAbsences }) => {
+const AbsenceTable: AbsenceTableType = ({ absences, memberMap }) => {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -40,43 +41,39 @@ const AbsenceTable: AbsenceTableType = ({ memberAbsences }) => {
                 </tr>
               </thead>
               <tbody>
-                {memberAbsences.map((memberAbsence) => (
+                {absences.map((absence: Absence) => (
                   <tr
-                    key={memberAbsence.id}
+                    key={absence.id}
                     className={
                       "border-b transition duration-300 ease-in-out hover:bg-orange-100" +
-                      getStatusClass(
-                        memberAbsence.rejectedAt,
-                        memberAbsence.confirmedAt
-                      )
+                      getStatusClass(absence.rejectedAt, absence.confirmedAt)
                     }
                   >
                     <td className={thClass + " whitespace-nowrap "}>
-                      {memberAbsence.id}
+                      {absence.id}
                     </td>
                     <td className={tdClass + " whitespace-nowrap "}>
-                      {memberAbsence.name}
+                      {memberMap[absence.userId]
+                        ? memberMap[absence.userId].name
+                        : "N/A"}
                     </td>
                     <td className={tdClass + " whitespace-nowrap "}>
-                      {memberAbsence.type}
+                      {absence.type}
                     </td>
                     <td className={tdClass + " whitespace-nowrap "}>
                       <span className="font-bold">
-                        {getDate(memberAbsence.startDate)}
+                        {getDate(absence.startDate)}
                       </span>{" "}
                       to{" "}
                       <span className="font-bold">
-                        {getDate(memberAbsence.endDate)}
+                        {getDate(absence.endDate)}
                       </span>
                     </td>
-                    <td className={tdClass}>{memberAbsence.memberNote}</td>
+                    <td className={tdClass}>{absence.memberNote}</td>
                     <td className={tdClass + " whitespace-nowrap "}>
-                      {getStatus(
-                        memberAbsence.rejectedAt,
-                        memberAbsence.confirmedAt
-                      )}
+                      {getStatus(absence.rejectedAt, absence.confirmedAt)}
                     </td>
-                    <td className={tdClass}>{memberAbsence.admitterNote}</td>
+                    <td className={tdClass}>{absence.admitterNote}</td>
                   </tr>
                 ))}
               </tbody>

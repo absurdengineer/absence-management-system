@@ -1,9 +1,10 @@
-import { MemberAbsence } from "./resource.types";
+import { Absence, MemberMap } from "./resource.types";
 
 export interface GlobalState {
   loading: boolean;
-  absenses: {
-    memberAbsences: MemberAbsence[];
+  resources: {
+    absences: Absence[];
+    memberMap: MemberMap;
     count: number;
     totalCount: number;
   };
